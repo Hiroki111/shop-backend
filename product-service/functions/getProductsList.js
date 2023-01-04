@@ -1,10 +1,10 @@
-const { mockProducts } = require('../mockData/products');
+import { getProducts } from '../services/product';
 
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      products: mockProducts,
+      products: await getProducts(),
     }),
   };
 };

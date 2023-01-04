@@ -1,4 +1,4 @@
-module.exports.mockProducts = [
+export const mockProducts = [
   {
     id: '1',
     title: 'Product 1',

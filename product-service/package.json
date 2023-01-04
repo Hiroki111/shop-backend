@@ -8,5 +8,12 @@
     "test": "test"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "serverless-webpack": "^5.11.0",
+    "webpack-node-externals": "^3.0.0"
+  }
 }

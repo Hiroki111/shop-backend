@@ -1,8 +1,8 @@
-const { mockProducts } = require('../mockData/products');
+import { findProductById } from '../services/product';
 
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
   const { productId } = event.pathParameters;
-  const product = mockProducts.find((product) => product.id === String(productId));
+  const product = await findProductById(productId);
   const result = {
     statusCode: 404,
     message: 'Product not found',
