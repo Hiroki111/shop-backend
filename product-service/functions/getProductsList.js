@@ -1,10 +1,15 @@
 import { getProducts } from '../services/product';
 
 export const handler = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      products: await getProducts(),
-    }),
-  };
+  try {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(await getProducts()),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      message: 'Internal error',
+    };
+  }
 };
