@@ -1,0 +1,30 @@
+[
+  {
+    "id": "644bcbe4-9412-11ed-a1eb-0242ac120002",
+    "title": "Toyata Camry",
+    "description": "Toyota Camry is an automobile sold internationally by the Japanese auto manufacturer Toyota since 1982",
+    "price": 30500,
+    "count": 300
+  },
+  {
+    "id": "685a84dc-9412-11ed-a1eb-0242ac120002",
+    "title": "Tesla Model 3 LONG RANGE",
+    "description": "Tesla Model 3 is a compact executive sedan that is battery powered and produced by Tesla",
+    "price": 41950,
+    "count": 451
+  },
+  {
+    "id": "6b732912-9412-11ed-a1eb-0242ac120002",
+    "title": "Toyota RAV4 XLE",
+    "description": "Toyota RAV4 is a compact crossover SUV produced by the Japanese automobile manufacturer Toyota",
+    "price": 29000,
+    "count": 209
+  },
+  {
+    "id": "6e1d5516-9412-11ed-a1eb-0242ac120002",
+    "title": "Volkswagen Arteon SEL R-LINE",
+    "description": "Volkswagen Arteon is a car manufactured by German car manufacturer Volkswagen",
+    "price": 34300,
+    "count": 304
+  }
+]
