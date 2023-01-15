@@ -1,11 +1,23 @@
 service: product-service
 frameworkVersion: '3'
 
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs14.x
   stage: dev
   region: eu-central-1
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:*
+      Resource:
+        - 'arn:aws:dynamodb:${env:DB_REGION}:*:table/${env:PRODUCTS_TABLE_NAME}'
+        - 'arn:aws:dynamodb:${env:DB_REGION}:*:table/${env:STOCKS_TABLE_NAME}'
+  environment:
+    DB_REGION: ${env:DB_REGION}
+    PRODUCTS_TABLE_NAME: ${env:PRODUCTS_TABLE_NAME}
+    STOCKS_TABLE_NAME: ${env:STOCKS_TABLE_NAME}
 
 functions:
   getProductsList:
@@ -23,6 +35,7 @@ functions:
 
 plugins:
   - serverless-webpack
+  - serverless-dotenv-plugin
 
 custom:
   webpack:

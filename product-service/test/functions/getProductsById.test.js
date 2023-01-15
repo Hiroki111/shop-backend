@@ -1,5 +1,5 @@
 import { handler } from '../../functions/getProductsById';
-import { mockProducts } from '../../mockData/products';
+import mockProducts from '../../assets/products.json';
 import { findProductById } from '../../services/product';
 
 jest.mock('../../services/product');
