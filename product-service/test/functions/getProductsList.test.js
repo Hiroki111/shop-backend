@@ -1,5 +1,5 @@
 import { getProducts } from '../../services/product';
-import { mockProducts } from '../../mockData/products';
+import mockProducts from '../../assets/products.json';
 import { handler } from '../../functions/getProductsList';
 
 jest.mock('../../services/product');
