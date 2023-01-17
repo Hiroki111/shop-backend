@@ -32,6 +32,12 @@ functions:
       - httpApi:
           path: /products/{productId}
           method: GET
+  createProduct:
+    handler: functions/createProduct.handler
+    events:
+      - httpApi:
+          path: /products
+          method: POST
 
 plugins:
   - serverless-webpack

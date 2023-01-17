@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import AWS from 'aws-sdk';
 
 const { DB_REGION, PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME } = process.env;
@@ -33,5 +34,36 @@ export async function findProductById(id) {
   return {
     ...productData.Item,
     count: stockData?.Item?.count,
+  };
+}
+
+export async function createProduct(data) {
+  const { title, description, price, count } = data;
+  const id = uuidv4();
+  const newProduct = { id, description, price, title };
+  const newStock = { product_id: id, count };
+  await dynamo
+    .batchWrite({
+      RequestItems: {
+        [PRODUCTS_TABLE_NAME]: [
+          {
+            PutRequest: {
+              Item: newProduct,
+            },
+          },
+        ],
+        [STOCKS_TABLE_NAME]: [
+          {
+            PutRequest: {
+              Item: newStock,
+            },
+          },
+        ],
+      },
+    })
+    .promise();
+  return {
+    ...newProduct,
+    count,
   };
 }
