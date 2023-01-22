@@ -1,0 +1,49 @@
+service: product-service
+frameworkVersion: '3'
+
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:*
+      Resource:
+        - 'arn:aws:dynamodb:${env:DB_REGION}:*:table/${env:PRODUCTS_TABLE_NAME}'
+        - 'arn:aws:dynamodb:${env:DB_REGION}:*:table/${env:STOCKS_TABLE_NAME}'
+  environment:
+    DB_REGION: ${env:DB_REGION}
+    PRODUCTS_TABLE_NAME: ${env:PRODUCTS_TABLE_NAME}
+    STOCKS_TABLE_NAME: ${env:STOCKS_TABLE_NAME}
+
+functions:
+  getProductsList:
+    handler: functions/getProductsList.handler
+    events:
+      - httpApi:
+          path: /products
+          method: GET
+  getProductsById:
+    handler: functions/getProductsById.handler
+    events:
+      - httpApi:
+          path: /products/{productId}
+          method: GET
+  createProduct:
+    handler: functions/createProduct.handler
+    events:
+      - httpApi:
+          path: /products
+          method: POST
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true # enable auto-packing of external modules

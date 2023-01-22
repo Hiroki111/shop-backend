@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Product Service
+  description: Product Service docs for task 3
+  contact:
+    name: Hiroki
+    email: hiroki@example.com
+  license:
+    name: MIT
+  version: 1.0.0
+
+servers:
+  - url: https://k22kplkry2.execute-api.eu-central-1.amazonaws.com
+
+paths:
+  /products:
+    get:
+      description: Get all products from store
+      operationId: getProductsList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Internal error
+  /products/{productId}:
+    get:
+      description: Returns a single product
+      operationId: getProductsById
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '1'
+        name:
+          type: string
+          description: Product name
+          example: 'Product 1'
+        description:
+          type: string
+          description: Product Id
+          example: 'This is Product 1'
+        price:
+          type: number
+          format: double
+          example: 7.5
+      xml:
+        name: product
