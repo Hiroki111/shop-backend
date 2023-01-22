@@ -7,3 +7,29 @@ provider:
   runtime: nodejs14.x
   stage: dev
   region: eu-central-1
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - s3:PutObject
+      Resource:
+        - 'arn:aws:s3:::uploaded-service/*'
+  environment:
+    REGION: ${env:REGION}
+    BUCKET_NAME: ${env:BUCKET_NAME}
+
+functions:
+  importProductsFile:
+    handler: functions/importProductsFile.handler
+    events:
+      - httpApi:
+          path: /import
+          method: GET
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true # enable auto-packing of external modules
