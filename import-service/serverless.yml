@@ -10,7 +10,7 @@ provider:
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
-        - s3:PutObject
+        - s3:*
       Resource:
         - 'arn:aws:s3:::uploaded-service/*'
   environment:
@@ -24,6 +24,15 @@ functions:
       - httpApi:
           path: /import
           method: GET
+  importFileParser:
+    handler: functions/importFileParser.handler
+    events:
+      - s3:
+          bucket: ${env:BUCKET_NAME}
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
 
 plugins:
   - serverless-webpack
